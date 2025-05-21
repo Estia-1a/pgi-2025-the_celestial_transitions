@@ -14,3 +14,8 @@
 void helloWorld() {
     printf("Hello World !");
 }
+
+void print_pixel(int X, int Y){
+     printf("informatique");
+
+}
