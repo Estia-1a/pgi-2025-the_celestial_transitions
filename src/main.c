@@ -37,8 +37,11 @@ int main(int argc, char **argv) {
   }
 
   if ( strncmp( configuration.command, "print_pixel", 11) == 0){
-    print_pixel(configuration.filenames[0]);
+    int x = atoi(argv[0]);
+    int y = atoi(argv[1]);
+    print_pixel(configuration.filenames[0], x, y);
   }
+
   /*
    * TO COMPLETE
    */

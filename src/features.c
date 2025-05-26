@@ -23,7 +23,7 @@ void dimension (char* sourcepath){
 void helloWorld() {
     printf("Hello World !");
 }
-void print_pixel(char* sourcepath){
+void print_pixel(char* sourcepath, int x, int y){
     unsigned char *data = NULL;
    
     int width = 0;
@@ -33,7 +33,7 @@ void print_pixel(char* sourcepath){
     if (read_image_data(sourcepath, &data, &width, &height, &channels)) {
         printf("Image : %d x %d, channels: %d\n", width, height, channels);
 
-        pixelRGB* px = getPixel(data, width, height, channels, 0, 0);
+        pixelRGB* px = getPixel(data, width, height, channels, x, y);
         if (px != NULL) {
             printf("First Pixel : R=%d G=%d B=%d\n", px->R, px->G, px->B);
             free(px);
