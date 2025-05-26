@@ -45,5 +45,31 @@ void print_pixel(char* sourcepath){
     } else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", sourcepath);
     }
+}
+
+void second_line(char *source_path) {
+    unsigned char *image_data;
+    int width, height, channels;
+
+    if (read_image_data(source_path, &image_data, &width, &height, &channels) != 0) {
+        fprintf(stderr, "Erreur lors de la lecture de l'image.\n");
+        return;
+    }
+
+    if (width <= 1 || height < 2) {
+        fprintf(stderr, "Image trop petite pour accéder au pixel (1, 0).\n");
+        return;
+    }
+
+    int x = 1;
+    int y = 0;  // ligne du haut
+    int index = (y * width + x) * channels;
+
+    // On suppose que l'image est RGB ou RGBA — on prend les 3 premiers canaux
+    unsigned char r = image_data[index + 0];
+    unsigned char g = image_data[index + 1];
+    unsigned char b = image_data[index + 2];
+
+    printf("second_line: %d, %d, %d\n", r, g, b);
 
 }

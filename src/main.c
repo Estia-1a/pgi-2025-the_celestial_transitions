@@ -39,9 +39,14 @@ int main(int argc, char **argv) {
   if ( strncmp( configuration.command, "print_pixel", 11) == 0){
     print_pixel(configuration.filenames[0]);
   }
+
+  if ( strncmp( configuration.command, "second_line", 11) == 0){
+    second_line("image.jpeg");
+  
+  }
+    return 0;
+}
   /*
    * TO COMPLETE
    */
   
-  return 0;
-}
