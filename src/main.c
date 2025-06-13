@@ -40,6 +40,9 @@ int main(int argc, char **argv) {
     first_pixel(configuration.filenames[0]);
   }
   
+  if ( strncmp( configuration.command, "min_pixel", 9 ) == 0 ) {
+    min_pixel(configuration.filenames[0]);
+  }
   
   return 0;
 }
