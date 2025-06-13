@@ -1,8 +1,6 @@
-
-
 #ifndef UTILS_H
 #define UTILS_H
 
-void print_error(const char *message);
+int MAX_pixel_value(unsigned char *data, int size);
 
 #endif

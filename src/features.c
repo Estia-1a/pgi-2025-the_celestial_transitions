@@ -5,33 +5,39 @@
 #include "features.h"
 #include "utils.h"
 
-void second_line(const char *source_path) {
-    unsigned char *data = NULL;
+void max_pixel(const char *source_path) {
     int width, height, channels;
+    unsigned char *data;
+    int result = read_image_data(source_path, &data, &width, &height, &channels);
 
-    if (read_image_data(source_path, &data, &width, &height, &channels) != 0) {
-        print_error("Impossible de lire l'image.");
-        return;
+    int max_value = 0;
+    int max_x = 0;
+    int max_y = 0;
+    int max_r = 0;
+    int max_g = 0;
+    int max_b = 0;
+
+    if (result) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int index = (y * width + x) * channels;
+                int r = data[index];
+                int g = data[index + 1];
+                int b = data[index + 2];
+                int sum_rgb = r + g + b;
+
+                if (sum_rgb > max_value) {
+                    max_value = sum_rgb;
+                    max_x = x;
+                    max_y = y;
+                    max_r = r;
+                    max_g = g;
+                    max_b = b;
+                }
+            }
+        }
+        printf("max_pixel (%d, %d): %d, %d, %d\n", max_x, max_y, max_r, max_g, max_b);
+    } else {
+        printf("Error reading image\n");
     }
-
-    if (height < 2) {
-        print_error("L'image doit avoir au moins 2 lignes.");
-        free(data);
-        return;
-    }
-
-    if (channels < 3) {
-        print_error("L'image doit avoir au moins 3 canaux (R,G,B).");
-        free(data);
-        return;
-    }
-
-    int index = width * channels;
-    int R = data[index];
-    int G = data[index + 1];
-    int B = data[index + 2];
-
-    printf("second_line: %d, %d, %d\n", R, G, B);
-
-    free(data);
 }

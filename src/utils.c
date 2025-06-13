@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include "utils.h"
 
-void print_error(const char *message) {
-    fprintf(stderr, "Erreur : %s\n", message);
+int MAX_pixel_value(unsigned char *data, int size) {
+    int max = data[0];
+    for (int i = 1; i < size; i++) {
+        if (data[i] > max) {
+            max = data[i];
+        }
+    }
+    return max;
 }

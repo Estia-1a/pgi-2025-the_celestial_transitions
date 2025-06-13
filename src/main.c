@@ -9,13 +9,8 @@
 #include "utils.h"
 #include "argsparse.h"
 
-
-int main(int argc, char *argv[]) {
-    if (argc < 2) {
-        fprintf(stderr, "Usage: %s <image_file>\n", argv[0]);
-        return 1;
+void main(void){
+    if ( strncmp( configuration.command, "max_pixel", 9 ) == 0 ) {
+    max_pixel( configuration.filenames[0] );
     }
-
-    second_line(argv[1]);
-    return 0;
 }
