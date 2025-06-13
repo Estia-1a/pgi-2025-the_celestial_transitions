@@ -1,5 +1,6 @@
 #include <estia-image.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "features.h"
 #include "utils.h"
@@ -15,7 +16,35 @@ void helloWorld() {
     printf("Hello World !");
 }
 
-void print_pixel(int X, int Y){
-     printf("informatique");
+void dimension (char *source_path){
+    int width, height, nbr_channel;
+    unsigned char *data;
+    int verif = read_image_data(source_path, &data, &width, & height, &nbr_channel);
+    
+    if (verif){
+        printf("dimension: %d, %d \n",width, height);
+    } else {
+        printf("Erreur dans la verification");
+    }
+}
 
+void first_pixel(char* sourcepath) {
+    unsigned char *data = NULL;
+   
+    int width = 0;
+    int height = 0;
+    int channels = 0;
+
+    if (read_image_data(sourcepath, &data, &width, &height, &channels)) {
+        unsigned char *data;
+        if(read_image_data(sourcepath, &data, &width, &height, &channels)){
+            printf("first_pixel: %d, %d, %d", data[0], data[1], data[2]);
+    
+        } else {
+            printf("Erreur");
+        }
+        free(data);
+    } else {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", sourcepath);
+    }
 }

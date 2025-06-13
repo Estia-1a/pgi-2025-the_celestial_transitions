@@ -32,13 +32,14 @@ int main(int argc, char **argv) {
     helloWorld();
   }
 
-  if ( strncmp( configuration.command, "pixel", 5 ) == 0 ) {
-    /* helloworld() function is defined in feature.h and implemented in feature.c */
-    print_pixel();
+  if ( strncmp( configuration.command, "dimension", 9 ) == 0 ) {
+    dimension(configuration.filenames[0]);
   }
-  /*
-   * TO COMPLETE
-   */
+
+  if ( strncmp( configuration.command, "first_pixel", 11 ) == 0 ) {
+    first_pixel(configuration.filenames[0]);
+  }
+  
   
   return 0;
 }
