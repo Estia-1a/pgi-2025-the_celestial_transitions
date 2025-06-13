@@ -81,7 +81,7 @@ void first_pixel(char*source_path) {
     typedef struct _pixelRGB {
     unsigned char R ;
     unsigned char G ;
-     unsigned char B ;
+    unsigned char B ;
 }   pixelRGB ;
 
     int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
