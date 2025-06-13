@@ -42,8 +42,12 @@ int main(int argc, char **argv) {
 
   if ( strncmp( configuration.command, "second_line", 11) == 0){
     second_line("image.jpeg");
-  
   }
+  
+  if ( strncmp( configuration.command, "first_pixel", 11) == 0){
+    second_line("image.jpeg");
+  }
+
     return 0;
 }
   /*

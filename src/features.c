@@ -73,3 +73,16 @@ void second_line(char *source_path) {
     printf("second_line: %d, %d, %d\n", r, g, b);
 
 }
+
+void first_pixel(char*source_path) {
+    unsigned char *image_data;
+    int width, height, channel;
+
+    typedef struct _pixelRGB {
+    unsigned char R ;
+    unsigned char G ;
+     unsigned char B ;
+}   pixelRGB ;
+
+    int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+}
