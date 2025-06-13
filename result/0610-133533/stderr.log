@@ -1,0 +1,4 @@
+/home/runner/work/pgi-2025-the_celestial_transitions/pgi-2025-the_celestial_transitions/src/main.c: In function ‘main’:
+/home/runner/work/pgi-2025-the_celestial_transitions/pgi-2025-the_celestial_transitions/src/main.c:37:5: warning: implicit declaration of function ‘print_pixel’ [-Wimplicit-function-declaration]
+   37 |     print_pixel();
+      |     ^~~~~~~~~~~
