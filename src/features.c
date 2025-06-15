@@ -48,3 +48,30 @@ void first_pixel(char* sourcepath) {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", sourcepath);
     }
 }
+
+void min_pixel(char *source_path){
+    int width, height, channel_count, min = 255*3, xmin = 0, ymin = 0, rmin = 0, gmin = 0, bmin = 0, x , y;
+    unsigned char *data;
+    if(read_image_data(source_path, &data, &width, &height, &channel_count)){
+        for (y=0; y < height; y++){
+            for (x = 0; x< width; x++){
+                pixelRGB* pointeur = getPixel(data, width, height, channel_count, x, y);
+                if (pointeur != NULL) {
+                    int RGB = pointeur->R + pointeur->G + pointeur->B;
+                    if (RGB < min) {
+                        min = RGB;
+                        xmin = x;
+                        ymin = y;
+                        rmin = pointeur->R; 
+                        gmin = pointeur->G;
+                        bmin = pointeur->B;
+                    }
+
+                }
+            }
+        }
+        printf("min_pixel (%d, %d): %d, %d, %d", xmin, ymin, rmin, gmin, bmin);
+    } else {
+        printf("Error");
+    }    
+}
