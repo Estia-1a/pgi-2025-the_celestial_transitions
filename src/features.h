@@ -9,7 +9,11 @@ void first_pixel(char *source_path);
 
 void tenth_pixel(char *source_path);
 
+void second_line(char* sourcepath);
+
 void min_pixel (char *source_path);
+
+
 
 void min_component (char *source_path, char t);
 

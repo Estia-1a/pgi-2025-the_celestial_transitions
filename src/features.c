@@ -70,6 +70,27 @@ void tenth_pixel(char* sourcepath) {
     }
 }
 
+void second_line(char* sourcepath) {
+    unsigned char *data = NULL;
+
+    int width = 0;
+    int height = 0;
+    int channels = 0;
+
+    if (read_image_data(sourcepath, &data, &width, &height, &channels)) {
+        if (height >= 2 && channels >= 3) {
+            int index = (1 * width + 0) * channels; 
+            printf("second_line : %d, %d, %d\n", data[index], data[index + 1], data[index + 2]);
+        } else {
+            printf("Image trop petite ou nombre de canaux insuffisant.\n");
+        }
+
+        free(data);
+    } else {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", sourcepath);
+    }
+}
+
 void min_pixel(char *source_path){
     int width, height, channel_count, min = 255*3, xmin = 0, ymin = 0, rmin = 0, gmin = 0, bmin = 0, x , y;
     unsigned char *data;
