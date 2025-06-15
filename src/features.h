@@ -11,6 +11,8 @@ void tenth_pixel(char *source_path);
 
 void second_line(char* sourcepath);
 
+void print_pixel(char* sourcepath, int x, int y);
+
 void min_pixel (char *source_path);
 
 
