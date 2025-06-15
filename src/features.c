@@ -91,6 +91,19 @@ void second_line(char* sourcepath) {
     }
 }
 
+void print_pixel(char* sourcepath,int x,int y){
+    int width, height, channels, n;
+    unsigned char *data;
+    
+    if (read_image_data(sourcepath, &data, &width, &height, &channels)){
+        n = (width * channels*(y-1))+((x-1)*channels);
+        printf ("print_pixel (%d,%d): %d, %d, %d", x, y, data[n], data[n+1], data[n+2]);
+
+    } else {
+        printf("Erreur d'éxécution");
+    }
+}
+
 void min_pixel(char *source_path){
     int width, height, channel_count, min = 255*3, xmin = 0, ymin = 0, rmin = 0, gmin = 0, bmin = 0, x , y;
     unsigned char *data;
