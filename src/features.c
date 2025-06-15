@@ -177,11 +177,33 @@ void color_red(char *sourcepath){
                 data[index + 2] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/output/image_out.bmp", data, width, height);
+    write_image_data("images/output/image_red.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
     }
 }
 
-
+void color_gray(char *sourcepath){
+int width, height, channels, x, y;
+unsigned char *data;
+if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
+    for (y = 0; y < height; y++){
+        for(x = 0; x < width; x++){
+            int index = (y * width + x) * channels;
+            
+            unsigned char r = data[index];
+            unsigned char g = data[index + 1];
+            unsigned char b = data[index + 2];
+            unsigned char gris = (r + g + b) / 3;
+            data[index] = gris;
+            data[index + 1] = gris;
+            data[index + 2] = gris;
+        }
+    }
+    write_image_data("images/output/image_gray.bmp", data, width, height);
+    free(data);
+} else {
+    printf("Erreur!");
+}
+}
