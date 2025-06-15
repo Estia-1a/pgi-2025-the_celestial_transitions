@@ -9,4 +9,6 @@ void first_pixel(char *source_path);
 
 void min_pixel (char *source_path);
 
+void min_component (char *source_path, char t);
+
 #endif

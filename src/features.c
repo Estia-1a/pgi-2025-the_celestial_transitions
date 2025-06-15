@@ -75,3 +75,38 @@ void min_pixel(char *source_path){
         printf("Error");
     }    
 }
+
+void min_component(char *sourcepath, char t){
+    int width, height, channel_count;
+    int min = 255;
+    int xmin = 0, ymin = 0;
+    unsigned char *data;
+
+    int result = read_image_data(sourcepath, &data, &width, &height, &channel_count);
+
+    if (result) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                pixelRGB* pointeur = getPixel(data, width, height, channel_count, x, y);
+                if (pointeur != NULL) {
+                    int value = 256; // Valeur impossible par sécurité
+
+                    if (t == 'R') value = pointeur->R;
+                    else if (t == 'G') value = pointeur->G;
+                    else if (t == 'B') value = pointeur->B;
+
+                    if (value < min) {
+                        min = value;
+                        xmin = x;
+                        ymin = y;
+                    }
+
+                    free(pointeur); // Important pour éviter les fuites mémoire
+                }
+            }
+        }
+        printf("min_component %c (%d, %d): %d\n", t, xmin, ymin, min);
+    } else {
+        printf("Erreur dans la lecture, vérifier le fichier\n");
+    }
+}
