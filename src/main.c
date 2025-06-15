@@ -60,7 +60,15 @@ int main(int argc, char **argv) {
 
   if ( strncmp( configuration.command, "min_component", 13 ) == 0) {
     char t = configuration.arguments[0][0] ;
+    if (t != 'R' && t != 'G' && t != 'B') {
+      fprintf(stderr, "Erreur : la composante doit etre R, G ou B (pas '%c')\n", t);
+      return 0;
+  }
     min_component( configuration.filenames[0], t);
+  }
+
+  if ( strncmp( configuration.command, "color_red", 9 ) == 0 ){
+    color_red(configuration.filenames[0]);
   }
   return 0;
 }

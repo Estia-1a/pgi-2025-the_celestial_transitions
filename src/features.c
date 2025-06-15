@@ -136,6 +136,7 @@ void min_component(char *sourcepath, char t){
     int min = 255;
     int xmin = 0, ymin = 0;
     unsigned char *data;
+    
 
     int result = read_image_data(sourcepath, &data, &width, &height, &channel_count);
 
@@ -144,8 +145,7 @@ void min_component(char *sourcepath, char t){
             for (int x = 0; x < width; x++) {
                 pixelRGB* pointeur = getPixel(data, width, height, channel_count, x, y);
                 if (pointeur != NULL) {
-                    int value = 256; // Valeur impossible par sécurité
-
+                    int value = 256;
                     if (t == 'R') value = pointeur->R;
                     else if (t == 'G') value = pointeur->G;
                     else if (t == 'B') value = pointeur->B;
@@ -156,7 +156,7 @@ void min_component(char *sourcepath, char t){
                         ymin = y;
                     }
 
-                    free(pointeur); // Important pour éviter les fuites mémoire
+                    free(pointeur);
                 }
             }
         }
@@ -165,3 +165,23 @@ void min_component(char *sourcepath, char t){
         printf("Erreur dans la lecture, vérifier le fichier\n");
     }
 }
+
+void color_red(char *sourcepath){
+    int width, height, channels, x, y;
+    unsigned char *data;
+    if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
+        for (y = 0; y < height; y++){
+            for(x = 0; x < width; x++){
+                int index = (y * width + x) * channels;
+                data[index + 1] = 0; //COuleur Vert
+                data[index + 2] = 0; //Couleur Bleu
+            }
+        }
+    write_image_data("images/output/image_out.bmp", data, width, height);
+    free(data);
+    } else {
+        printf("Erreur!");
+    }
+}
+
+
