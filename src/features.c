@@ -360,10 +360,44 @@ void color_desaturate(char *sourcepath){
                 data[index + 2] = new_val;
             }
         }
-        printf("sucess");
         write_image_data("images/output/image_desaturate.bmp", data, width, height);
         free(data);
     } else {
         printf("Erreur!");
     }
     }
+
+void rotate_cw(char *sourcepath){
+    int width, height, channels;
+    unsigned char *data; 
+
+    if ( !read_image_data(sourcepath, &data, &width, &height, &channels)){
+        printf("Erreur de lecture Image");
+        return;
+    } 
+
+    unsigned char *rotate = malloc(width * height * channels);
+    if(!rotate) {
+        printf("Erreur Memoire");
+        free(data);
+        return;
+    }
+
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            int src = (y * width + x) * channels;
+                
+            int rot_x = height - 1 - y;
+            int rot_y = x;
+            int idx = (rot_y * height + rot_x) * channels;  
+    
+            for (int c = 0; c < channels; c++) {
+                rotate[idx + c] = data[src + c];
+            }
+        }
+    }
+    write_image_data("images/output/image_rotatecw.bmp",rotate, height, width);
+
+    free(data);
+    free(rotate);
+}
