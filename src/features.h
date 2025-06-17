@@ -18,7 +18,7 @@ void print_pixel(char* sourcepath, int x, int y);
 
 void min_pixel (char *source_path);
 
-
+void max_pixel (char *source_path);
 
 void min_component (char *source_path, char t);
 
