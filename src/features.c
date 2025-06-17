@@ -301,3 +301,21 @@ void max_component(char *sourcepath, char t){
         printf("Erreur dans la lecture, vérifier le fichier\n");
     }
 }
+
+void color_blue(char *sourcepath){
+    int width, height, channels, x, y;
+    unsigned char *data;
+    if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
+        for (y = 0; y < height; y++){
+            for(x = 0; x < width; x++){
+                int index = (y * width + x) * channels;
+                data[index + 1] = 0; //COuleur Vert
+                data[index] = 0; //Couleur Bleu
+            }
+        }
+    write_image_data("images/output/image_blue.bmp", data, width, height);
+    free(data);
+    } else {
+        printf("Erreur!");
+    }
+}
