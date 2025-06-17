@@ -48,6 +48,10 @@ int main(int argc, char **argv) {
     second_line("image.jpeg");
   }
 
+  if ( strncmp( configuration.command, "max_component", 13) == 0){
+    char t = configuration.arguments[0][0];
+    max_component( configuration.filenames[0], t);
+  }
     return 0;
 }
   /*

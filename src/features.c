@@ -86,3 +86,34 @@ void first_pixel(char*source_path) {
 
     int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
 }
+
+void max_component(char*source_path, char t) {
+    int width, height, channel_count, max, xmax, ymax, x, y;
+    unsigned char*data;
+    int resultat = read_image_data(source_path, &data, &width, &height, &channel_count);
+    max = 0 ;
+    xmax = 0 ;
+    ymax = 0 ;
+
+    if (resultat) {
+        for (y=0; y<= height; y++){
+        for (x=0; x<= width; x++){
+            pixelRGB*current_pixel = get_pixel(data, width, height, channel_count, x, y);
+        if(current_pixel != NULL){
+            if(t == 'R'){
+                max = current_pixel -> R;
+                xmax = x;
+                ymax = y;
+            }
+        }
+        if(t =='G'){
+            
+        }
+        }
+        }
+    }
+    {
+        /* code */
+    }
+    
+}
