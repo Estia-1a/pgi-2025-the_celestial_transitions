@@ -12,6 +12,7 @@
     },
     "files.associations": {
         "unistd.h": "c",
-        "estia-image.h": "c"
+        "features.h": "c"
     },
+    "C_Cpp.errorSquiggles": "disabled",
 }
