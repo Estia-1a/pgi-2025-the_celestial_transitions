@@ -23,6 +23,8 @@ void min_component (char *source_path, char t);
 
 void color_red (char *source_path);
 
+void color_green (char *source_path);
+
 void color_gray (char *source_path);
 
 void color_invert(char *source_path);

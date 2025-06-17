@@ -184,6 +184,24 @@ void color_red(char *sourcepath){
         printf("Erreur!");
     }
 }
+void color_green(char *sourcepath){
+    int width, height, channels, x, y;
+    unsigned char *data;
+    if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
+        for (y = 0; y < height; y++){
+            for(x = 0; x < width; x++){
+                int index = (y * width + x) * channels;
+                data[index] = 0; //COuleur Rouge
+                data[index + 2] = 0; //Couleur Bleu
+            }
+        }
+    write_image_data("images/output/image_green.bmp", data, width, height);
+    free(data);
+    } else {
+        printf("Erreur!");
+    }
+}
+
 
 void color_gray(char *sourcepath){
 int width, height, channels, x, y;
