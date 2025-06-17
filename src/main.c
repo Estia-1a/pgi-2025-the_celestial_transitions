@@ -86,10 +86,11 @@ int main(int argc, char **argv) {
   if ( strncmp( configuration.command, "color_blue", 10 )== 0){
     color_blue(configuration.filenames[0]);
   }
-
+ 
+  if ( strncmp( configuration.command, "color_desaturate", 17 )== 0){
+    color_desaturate(configuration.filenames[0]);
+  }
   return 0;
 }
-  /*
-   * TO COMPLETE
-   */
+
   
