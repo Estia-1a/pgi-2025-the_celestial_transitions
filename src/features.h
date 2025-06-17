@@ -30,4 +30,6 @@ void color_gray (char *source_path);
 
 void color_invert(char *source_path);
 
+void color_blue (char *source_path);
+
 #endif
