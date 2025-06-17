@@ -253,7 +253,7 @@ void color_invert(char *sourcepath){
     }
 }
 
-void max_pixel(const char *source_path) {
+void max_pixel(char *source_path) {
     int width, height, channels;
     unsigned char *data;
     int result = read_image_data(source_path, &data, &width, &height, &channels);
