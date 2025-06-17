@@ -12,24 +12,19 @@
  * Your commit messages must contain "#n" with: n = number of the corresponding feature issue.
  * When the feature is totally implemented, your commit message must contain "close #n".
  */
+void dimension (char* sourcepath){
+    unsigned char *data = NULL;
+    int width, height, channel_count;
+    
+    read_image_data(sourcepath, &data, &width, &height, &channel_count);
+
+    printf("Dimension : %d %d\n", width, height);
+}
 
 void helloWorld() {
     printf("Hello World !");
 }
-
-void dimension (char *source_path){
-    int width, height, nbr_channel;
-    unsigned char *data;
-    int verif = read_image_data(source_path, &data, &width, & height, &nbr_channel);
-    
-    if (verif){
-        printf("dimension: %d, %d \n",width, height);
-    } else {
-        printf("Erreur dans la verification");
-    }
-}
-
-void first_pixel(char* sourcepath) {
+void print_pixel(char* sourcepath){
     unsigned char *data = NULL;
    
     int width = 0;
@@ -37,13 +32,16 @@ void first_pixel(char* sourcepath) {
     int channels = 0;
 
     if (read_image_data(sourcepath, &data, &width, &height, &channels)) {
-        unsigned char *data;
-        if(read_image_data(sourcepath, &data, &width, &height, &channels)){
-            printf("first_pixel: %d, %d, %d", data[0], data[1], data[2]);
-    
+        printf("Image : %d x %d, channels: %d\n", width, height, channels);
+
+        pixelRGB* px = getPixel(data, width, height, channels, 0, 0);
+        if (px != NULL) {
+            printf("First Pixel : R=%d G=%d B=%d\n", px->R, px->G, px->B);
+            free(px);
         } else {
-            printf("Erreur");
+            printf("Erreur lors de l'accès au pixel (0,0).\n");
         }
+
         free(data);
     } else {
         fprintf(stderr, "Erreur : impossible de lire l'image %s\n", sourcepath);
@@ -287,5 +285,41 @@ void max_pixel(const char *source_path) {
         printf("max_pixel (%d, %d): %d, %d, %d\n", max_x, max_y, max_r, max_g, max_b);
     } else {
         printf("Error reading image\n");
+    }
+}
+
+void max_component(char *sourcepath, char t){
+    int width, height, channels_count;
+    int max = 0;
+    int xmax = 0, ymax = 0;
+    unsigned char *data;
+   
+ 
+    int result = read_image_data(sourcepath, &data, &width, &height, &channels_count);
+ 
+    if (result) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                pixelRGB* pointeur = getPixel(data, width, height, channels_count, x, y);
+                if (pointeur != NULL) {
+                    int value = 256;
+                    if (t == 'R') value = pointeur->R;
+                    else if (t == 'G') value = pointeur->G;
+                    else if (t == 'B') value = pointeur->B;
+ 
+                    if (value > max) {
+                        max = value;
+                        xmax = x;
+                        ymax = y;
+                    }
+ 
+                    free(pointeur);
+                }
+            }
+        }
+        printf("max_component %c (%d, %d): %d\n", t, xmax, ymax, max);
+    } 
+        else{
+        printf("Erreur dans la lecture, vérifier le fichier\n");
     }
 }
