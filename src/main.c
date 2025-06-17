@@ -30,10 +30,6 @@ int main(int argc, char **argv) {
   if ( strncmp( configuration.command, "dimension", 9) == 0){
     dimension(configuration.filenames[0]);
   }
-
-  if ( strncmp( configuration.command, "print_pixel", 11) == 0){
-    print_pixel(configuration.filenames[0]);
-  }
   
   if ( strncmp( configuration.command, "tenth_pixel", 11 ) == 0 ) {
     tenth_pixel(configuration.filenames[0]);
