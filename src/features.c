@@ -220,7 +220,7 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             data[index + 2] = gris;
         }
     }
-    write_image_data("images/output/image_gray.bmp", data, width, height);
+    write_image_data("images/output/image_gray_luminance.bmp", data, width, height);
     free(data);
 } else {
     printf("Erreur!");
