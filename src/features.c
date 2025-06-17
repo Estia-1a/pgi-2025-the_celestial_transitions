@@ -269,3 +269,39 @@ void max_pixel(const char *source_path) {
         printf("Error reading image\n");
     }
 }
+
+void max_component(char *sourcepath, char t){
+    int width, height, channels_count;
+    int max = 0;
+    int xmax = 0, ymax = 0;
+    unsigned char *data;
+   
+ 
+    int result = read_image_data(sourcepath, &data, &width, &height, &channels_count);
+ 
+    if (result) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                pixelRGB* pointeur = getPixel(data, width, height, channels_count, x, y);
+                if (pointeur != NULL) {
+                    int value = 256;
+                    if (t == 'R') value = pointeur->R;
+                    else if (t == 'G') value = pointeur->G;
+                    else if (t == 'B') value = pointeur->B;
+ 
+                    if (value > max) {
+                        max = value;
+                        xmax = x;
+                        ymax = y;
+                    }
+ 
+                    free(pointeur);
+                }
+            }
+        }
+        printf("max_component %c (%d, %d): %d\n", t, xmax, ymax, max);
+    } 
+        else{
+        printf("Erreur dans la lecture, vérifier le fichier\n");
+    }
+}
