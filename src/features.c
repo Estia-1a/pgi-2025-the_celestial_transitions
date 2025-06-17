@@ -207,3 +207,29 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
     printf("Erreur!");
 }
 }
+
+void color_invert(char *sourcepath){
+    int width, height, channels, x, y;
+    unsigned char *data;
+    if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
+        for (y = 0; y < height; y++){
+            for(x = 0; x < width; x++){
+                int index = (y * width + x) * channels;
+                
+                unsigned char old_r = data[index];
+                unsigned char old_g = data[index + 1];
+                unsigned char old_b = data[index + 2];
+                unsigned char new_r = 255 - old_r;
+                unsigned char new_g = 255 - old_g;
+                unsigned char new_b = 255 - old_b;
+                data[index] = new_r;
+                data[index + 1] = new_g;
+                data[index + 2] = new_b;
+            }
+        }
+        write_image_data("images/output/image_invert.bmp", data, width, height);
+        free(data);
+    } else {
+        printf("Erreur!");
+    }
+}
