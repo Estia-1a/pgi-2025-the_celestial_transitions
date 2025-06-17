@@ -47,11 +47,11 @@ void print_pixel(char* sourcepath){
     }
 }
 
-void second_line(char *source_path) {
+void second_line(char *sourcepath) {
     unsigned char *image_data;
     int width, height, channels;
 
-    if (read_image_data(source_path, &image_data, &width, &height, &channels) != 0) {
+    if (read_image_data(sourcepath, &image_data, &width, &height, &channels) != 0) {
         fprintf(stderr, "Erreur lors de la lecture de l'image.\n");
         return;
     }
@@ -74,46 +74,38 @@ void second_line(char *source_path) {
 
 }
 
-void first_pixel(char*source_path) {
-    unsigned char *image_data;
-    int width, height, channel;
-
-    typedef struct _pixelRGB {
-    unsigned char R ;
-    unsigned char G ;
-    unsigned char B ;
-}   pixelRGB ;
-
-    int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
-}
-
-void max_component(char*source_path, char t) {
-    int width, height, channel_count, max, xmax, ymax, x, y;
-    unsigned char*data;
-    int resultat = read_image_data(source_path, &data, &width, &height, &channel_count);
-    max = 0 ;
-    xmax = 0 ;
-    ymax = 0 ;
-
-    if (resultat) {
-        for (y=0; y<= height; y++){
-        for (x=0; x<= width; x++){
-            pixelRGB*current_pixel = get_pixel(data, width, height, channel_count, x, y);
-        if(current_pixel != NULL){
-            if(t == 'R'){
-                max = current_pixel -> R;
-                xmax = x;
-                ymax = y;
+void max_component(char *sourcepath, char t){
+    int width, height, channels_count;
+    int max = 0;
+    int xmax = 0, ymax = 0;
+    unsigned char *data;
+   
+ 
+    int result = read_image_data(sourcepath, &data, &width, &height, &channels_count);
+ 
+    if (result) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                pixelRGB* pointeur = getPixel(data, width, height, channels_count, x, y);
+                if (pointeur != NULL) {
+                    int value = 256;
+                    if (t == 'R') value = pointeur->R;
+                    else if (t == 'G') value = pointeur->G;
+                    else if (t == 'B') value = pointeur->B;
+ 
+                    if (value > max) {
+                        max = value;
+                        xmax = x;
+                        ymax = y;
+                    }
+ 
+                    free(pointeur);
+                }
             }
         }
-        if(t =='G'){
-            
-        }
-        }
-        }
+        printf("max_component %c (%d, %d): %d\n", t, xmax, ymax, max);
+    } 
+        else{
+        printf("Erreur dans la lecture, vérifier le fichier\n");
     }
-    {
-        /* code */
-    }
-    
 }
