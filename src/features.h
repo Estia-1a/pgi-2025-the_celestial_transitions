@@ -4,7 +4,7 @@
 #define FEATURES_H
 
 void dimension(char* sourcepath);
-void print_pixel(char* sourcepath);
+
 void helloWorld();
 void second_line(char* sourcepath);
 void first_pixel(char* sourcepath);
@@ -27,6 +27,8 @@ void color_red (char *source_path);
 void color_green (char *source_path);
 
 void color_gray (char *source_path);
+
+void color_gray_luminance (char *source_path);
 
 void color_invert(char *source_path);
 

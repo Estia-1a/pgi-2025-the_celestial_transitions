@@ -31,10 +31,6 @@ int main(int argc, char **argv) {
     dimension(configuration.filenames[0]);
   }
 
-  if ( strncmp( configuration.command, "print_pixel", 11) == 0){
-    print_pixel(configuration.filenames[0]);
-  }
-  
   if ( strncmp( configuration.command, "tenth_pixel", 11 ) == 0 ) {
     tenth_pixel(configuration.filenames[0]);
   }
@@ -72,6 +68,10 @@ int main(int argc, char **argv) {
 
   if ( strncmp( configuration.command, "color_gray", 11 )== 0){
     color_gray(configuration.filenames[0]);
+  }
+
+  if ( strncmp( configuration.command, "color_gray_luminance", 11 )== 0){
+    color_gray_luminance(configuration.filenames[0]);
   }
 
   if ( strncmp( configuration.command, "color_invert", 13 )== 0){

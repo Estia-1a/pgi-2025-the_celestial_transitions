@@ -24,29 +24,7 @@ void dimension (char* sourcepath){
 void helloWorld() {
     printf("Hello World !");
 }
-void print_pixel(char* sourcepath){
-    unsigned char *data = NULL;
-   
-    int width = 0;
-    int height = 0;
-    int channels = 0;
 
-    if (read_image_data(sourcepath, &data, &width, &height, &channels)) {
-        printf("Image : %d x %d, channels: %d\n", width, height, channels);
-
-        pixelRGB* px = getPixel(data, width, height, channels, 0, 0);
-        if (px != NULL) {
-            printf("First Pixel : R=%d G=%d B=%d\n", px->R, px->G, px->B);
-            free(px);
-        } else {
-            printf("Erreur lors de l'accès au pixel (0,0).\n");
-        }
-
-        free(data);
-    } else {
-        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", sourcepath);
-    }
-}
 
 void tenth_pixel(char* sourcepath) {
     unsigned char *data = NULL;
@@ -213,6 +191,30 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             unsigned char g = data[index + 1];
             unsigned char b = data[index + 2];
             unsigned char gris = (r + g + b) / 3;
+            data[index] = gris;
+            data[index + 1] = gris;
+            data[index + 2] = gris;
+        }
+    }
+    write_image_data("images/output/image_gray.bmp", data, width, height);
+    free(data);
+} else {
+    printf("Erreur!");
+}
+}
+
+void color_gray_luminance(char *sourcepath){
+int width, height, channels, x, y;
+unsigned char *data;
+if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
+    for (y = 0; y < height; y++){
+        for(x = 0; x < width; x++){
+            int index = (y * width + x) * channels;
+            
+            unsigned char r = data[index];
+            unsigned char g = data[index + 1];
+            unsigned char b = data[index + 2];
+            unsigned char gris = (0.21 * r + 0.72 * g + 0.07 * b) / 3;
             data[index] = gris;
             data[index + 1] = gris;
             data[index + 2] = gris;
