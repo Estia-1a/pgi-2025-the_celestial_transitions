@@ -19,6 +19,7 @@ void dimension (char* sourcepath){
     read_image_data(sourcepath, &data, &width, &height, &channel_count);
 
     printf("Dimension : %d, %d\n", width, height);
+    printf("Dimension : %d, %d\n", width, height);
 }
 
 void helloWorld() {
@@ -91,7 +92,7 @@ void print_pixel(char* sourcepath,int x,int y){
     unsigned char *data;
     
     if (read_image_data(sourcepath, &data, &width, &height, &channels)){
-        n = (width * channels*(y-1))+((x-1)*channels);
+        n = (width * channels*(y))+((x)*channels);
         printf ("print_pixel (%d,%d): %d, %d, %d", x, y, data[n], data[n+1], data[n+2]);
 
     } else {
@@ -478,32 +479,4 @@ void rotate_acw(char *sourcepath){
         write_image_data("image_out.bmp",data, height, width);
 
         free(data);
-
-    }
-
-        void mirror_vertical (char* source_path){
-        int width, height, channels;
-        unsigned char *data;
- 
-        if ( !read_image_data(source_path, &data, &width, &height, &channels)){
-            printf("Erreur de lecture Image");
-            return;
-        }
-
-    for (int y = 0; y < height / 2; y++) {
-        for (int x = 0; x < width; x++) {
-            int idx1 = (y * width + x) * channels;
-            int idx2 = ((height - 1 - y) * width + x) * channels;
-
-                for (int c = 0; c < channels; c++){
-                    unsigned char tmp = data[idx1 + c];
-                    data[idx1 + c] = data[idx2 +c];
-                    data[idx2 + c] = tmp;
-                }
-            }
-        }
-        write_image_data("image_out.bmp",data, height, width);
-
-        free(data);
-
     }
