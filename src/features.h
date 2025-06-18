@@ -6,8 +6,11 @@
 void dimension(char* sourcepath);
 
 void helloWorld();
+
 void second_line(char* sourcepath);
+
 void first_pixel(char* sourcepath);
+
 void max_component(char* sourcepath, char t);
 
 void tenth_pixel(char *source_path);
