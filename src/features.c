@@ -18,7 +18,7 @@ void dimension (char* sourcepath){
     
     read_image_data(sourcepath, &data, &width, &height, &channel_count);
 
-    printf("Dimension : %d %d\n", width, height);
+    printf("Dimension : %d, %d\n", width, height);
 }
 
 void helloWorld() {
@@ -172,7 +172,7 @@ void color_red(char *sourcepath){
                 data[index + 2] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/output/image_red.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -189,7 +189,7 @@ void color_green(char *sourcepath){
                 data[index + 2] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/output/image_green.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -214,7 +214,7 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             data[index + 2] = gris;
         }
     }
-    write_image_data("images/output/image_gray.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
 } else {
     printf("Erreur!");
@@ -238,7 +238,7 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             data[index + 2] = gris;
         }
     }
-    write_image_data("images/output/image_gray_luminance.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
 } else {
     printf("Erreur!");
@@ -264,7 +264,7 @@ void color_invert(char *sourcepath){
                 data[index + 2] = new_b;
             }
         }
-        write_image_data("images/output/image_invert.bmp", data, width, height);
+        write_image_data("image_out.bmp", data, width, height);
         free(data);
     } else {
         printf("Erreur!");
@@ -354,7 +354,7 @@ void color_blue(char *sourcepath){
                 data[index] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/output/image_blue.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -378,7 +378,7 @@ void color_desaturate(char *sourcepath){
                 data[index + 2] = new_val;
             }
         }
-        write_image_data("images/output/image_desaturate.bmp", data, width, height);
+        write_image_data("image_out.bmp", data, width, height);
         free(data);
     } else {
         printf("Erreur!");
@@ -414,7 +414,7 @@ void rotate_cw(char *sourcepath){
             }
         }
     }
-    write_image_data("images/output/image_rotatecw.bmp",rotate, height, width);
+    write_image_data("image_out.bmp",rotate, height, width);
 
     free(data);
     free(rotate);
@@ -448,7 +448,7 @@ void rotate_acw(char *sourcepath){
                 }
             }
         }
-        write_image_data("images/output/image_rotate_acw.bmp",rotate, height, width);
+        write_image_data("image_out.bmp",rotate, height, width);
  
         free(data);
         free(rotate);
@@ -463,7 +463,7 @@ void rotate_acw(char *sourcepath){
             return;
         }
 
-        for (int y = 0; y < height; y++){
+            for (int y = 0; y < height; y++){
             for (int x = 0; x < width / 2; x++){
                 int idx1 = (y * width + x)*channels;
                 int idx2 = (y * width + (width - 1 - x))*channels;
@@ -475,7 +475,7 @@ void rotate_acw(char *sourcepath){
                 }
             }
         }
-        write_image_data("images/output/image_horizontal.bmp",data, height, width);
+        write_image_data("image_out.bmp",data, height, width);
 
         free(data);
 
@@ -490,10 +490,10 @@ void rotate_acw(char *sourcepath){
             return;
         }
 
-        for (int y = 0; y < width; y++){
-            for (int x = 0; x < height / 2; x++){
-                int idx1 = (y * height + x)*channels;
-                int idx2 = (y * height + (height - 1 - x))*channels;
+    for (int y = 0; y < height / 2; y++) {
+        for (int x = 0; x < width; x++) {
+            int idx1 = (y * width + x) * channels;
+            int idx2 = ((height - 1 - y) * width + x) * channels;
 
                 for (int c = 0; c < channels; c++){
                     unsigned char tmp = data[idx1 + c];
@@ -502,7 +502,7 @@ void rotate_acw(char *sourcepath){
                 }
             }
         }
-        write_image_data("images/output/image_vertical.bmp",data, height, width);
+        write_image_data("image_out.bmp",data, height, width);
 
         free(data);
 
