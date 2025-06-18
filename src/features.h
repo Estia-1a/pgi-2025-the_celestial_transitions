@@ -43,4 +43,6 @@ void color_desaturate (char *source_path);
 
 void rotate_cw ( char *sourcepath);
 
+void rotate_acw ( char *sourcepath);
+
 #endif
