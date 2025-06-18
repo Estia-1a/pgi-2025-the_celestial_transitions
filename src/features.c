@@ -507,3 +507,9 @@ void rotate_acw(char *sourcepath){
         free(data);
 
     }
+
+    void mirror_total (char* sourcepath){
+        mirror_horizontal(sourcepath);
+
+        mirror_vertical("image_out.bmp");
+    }

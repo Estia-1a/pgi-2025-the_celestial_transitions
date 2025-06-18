@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
     color_desaturate(configuration.filenames[0]);
   }
 
-  if ( strncmp( configuration.command, "rotate_cw", 10 )== 0){
+  if ( strncmp( configuration.command, "rotate_cw", 9 )== 0){
     rotate_cw(configuration.filenames[0]);
   }
 
@@ -112,13 +112,18 @@ int main(int argc, char **argv) {
     rotate_acw(configuration.filenames[0]);
   }
 
-  if ( strncmp( configuration.command, "mirror_horizontal", 10 )== 0){
+  if ( strncmp( configuration.command, "mirror_horizontal", 17 )== 0){
     mirror_horizontal(configuration.filenames[0]);
   }
 
-  if ( strncmp( configuration.command, "mirror_vertical", 10 )== 0){
+  if ( strncmp( configuration.command, "mirror_vertical", 15 )== 0){
     mirror_vertical(configuration.filenames[0]);
   }
+
+  if ( strncmp( configuration.command, "mirror_total", 12 )== 0){
+    mirror_total(configuration.filenames[0]);
+  }
+
   
   return 0;
 }
