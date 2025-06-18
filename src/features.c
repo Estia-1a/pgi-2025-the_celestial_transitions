@@ -480,3 +480,30 @@ void rotate_acw(char *sourcepath){
 
         free(data);
     }
+
+    void mirror_vertical (char* source_path){
+        int width, height, channels;
+        unsigned char *data;
+ 
+        if ( !read_image_data(source_path, &data, &width, &height, &channels)){
+            printf("Erreur de lecture Image");
+            return;
+        }
+
+    for (int y = 0; y < height / 2; y++) {
+        for (int x = 0; x < width; x++) {
+            int idx1 = (y * width + x) * channels;
+            int idx2 = ((height - 1 - y) * width + x) * channels;
+
+                for (int c = 0; c < channels; c++){
+                    unsigned char tmp = data[idx1 + c];
+                    data[idx1 + c] = data[idx2 +c];
+                    data[idx2 + c] = tmp;
+                }
+            }
+        }
+        write_image_data("image_out.bmp",data, height, width);
+
+        free(data);
+
+    }
