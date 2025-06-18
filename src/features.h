@@ -45,4 +45,6 @@ void rotate_cw ( char *sourcepath);
 
 void rotate_acw ( char *sourcepath);
 
+void mirror_horizontal( char *source_path);
+
 #endif

@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
     color_red(configuration.filenames[0]);
   }
 
-    if ( strncmp( configuration.command, "color_green", 9 ) == 0 ){
+    if ( strncmp( configuration.command, "color_green", 11 ) == 0 ){
     color_green(configuration.filenames[0]);
   }
 
@@ -110,6 +110,10 @@ int main(int argc, char **argv) {
 
   if ( strncmp( configuration.command, "rotate_acw", 10 )== 0){
     rotate_acw(configuration.filenames[0]);
+  }
+
+  if ( strncmp( configuration.command, "mirror_horizontal", 10 )== 0){
+    mirror_horizontal(configuration.filenames[0]);
   }
   
   return 0;
