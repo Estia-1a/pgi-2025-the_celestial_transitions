@@ -25,6 +25,24 @@ void helloWorld() {
     printf("Hello World !");
 }
 
+void first_pixel(char* sourcepath){
+    unsigned char *data = NULL;
+
+    int width = 0, height = 0,channels = 0;
+
+    if (read_image_data(sourcepath, &data, &width, &height, &channels)) {
+        unsigned char *data;
+        if(read_image_data(sourcepath, &data, &width, &height, &channels)){
+            printf("first_pixel: %d, %d, %d", data[0 * channels], data[0 * channels + 1], data[0 * channels + 2]);
+    
+        } else {
+            printf("Erreur");
+        }
+        free(data);
+    } else {
+        fprintf(stderr, "Erreur : impossible de lire l'image %s\n", sourcepath);
+    }
+}
 
 void tenth_pixel(char* sourcepath) {
     unsigned char *data = NULL;
