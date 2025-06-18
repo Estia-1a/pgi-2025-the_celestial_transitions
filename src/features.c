@@ -91,7 +91,7 @@ void print_pixel(char* sourcepath,int x,int y){
     unsigned char *data;
     
     if (read_image_data(sourcepath, &data, &width, &height, &channels)){
-        n = (width * channels*(y-1))+((x-1)*channels);
+        n = (width * channels*(y))+((x)*channels);
         printf ("print_pixel (%d,%d): %d, %d, %d", x, y, data[n], data[n+1], data[n+2]);
 
     } else {
@@ -172,7 +172,7 @@ void color_red(char *sourcepath){
                 data[index + 2] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/input/image_out.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -189,7 +189,7 @@ void color_green(char *sourcepath){
                 data[index + 2] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/input/image_out.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -214,7 +214,7 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             data[index + 2] = gris;
         }
     }
-    write_image_data("images/input/image_out.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
 } else {
     printf("Erreur!");
@@ -238,7 +238,7 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             data[index + 2] = gris;
         }
     }
-    write_image_data("images/output/image_gray_luminance.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
 } else {
     printf("Erreur!");
@@ -264,7 +264,7 @@ void color_invert(char *sourcepath){
                 data[index + 2] = new_b;
             }
         }
-        write_image_data("images/output/image_invert.bmp", data, width, height);
+        write_image_data("image_out.bmp", data, width, height);
         free(data);
     } else {
         printf("Erreur!");
@@ -354,7 +354,7 @@ void color_blue(char *sourcepath){
                 data[index] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/output/image_blue.bmp", data, width, height);
+    write_image_data("image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -378,7 +378,7 @@ void color_desaturate(char *sourcepath){
                 data[index + 2] = new_val;
             }
         }
-        write_image_data("images/output/image_desaturate.bmp", data, width, height);
+        write_image_data("image_out.bmp", data, width, height);
         free(data);
     } else {
         printf("Erreur!");
@@ -414,7 +414,7 @@ void rotate_cw(char *sourcepath){
             }
         }
     }
-    write_image_data("images/output/image_rotatecw.bmp",rotate, height, width);
+    write_image_data("image_out.bmp",rotate, height, width);
 
     free(data);
     free(rotate);
@@ -448,7 +448,7 @@ void rotate_acw(char *sourcepath){
                 }
             }
         }
-        write_image_data("images/output/image_rotate_acw.bmp",rotate, height, width);
+        write_image_data("image_out.bmp",rotate, height, width);
  
         free(data);
         free(rotate);
@@ -475,8 +475,7 @@ void rotate_acw(char *sourcepath){
                 }
             }
         }
-        write_image_data("images/output/image_horizontal.bmp",data, height, width);
+        write_image_data("image_out.bmp",data, height, width);
 
         free(data);
-
     }
