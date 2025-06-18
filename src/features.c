@@ -214,7 +214,7 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             unsigned char r = data[index];
             unsigned char g = data[index + 1];
             unsigned char b = data[index + 2];
-            unsigned char gris = (0.21 * r + 0.72 * g + 0.07 * b) / 3;
+            unsigned char gris = (0.21 * r + 0.72 * g + 0.07 * b);
             data[index] = gris;
             data[index + 1] = gris;
             data[index + 2] = gris;
