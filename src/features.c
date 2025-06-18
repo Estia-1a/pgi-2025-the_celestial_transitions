@@ -18,7 +18,7 @@ void dimension (char* sourcepath){
     
     read_image_data(sourcepath, &data, &width, &height, &channel_count);
 
-    printf("Dimension : %d %d\n", width, height);
+    printf("Dimension : %d, %d\n", width, height);
 }
 
 void helloWorld() {
@@ -172,7 +172,7 @@ void color_red(char *sourcepath){
                 data[index + 2] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/output/image_red.bmp", data, width, height);
+    write_image_data("images/input/image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -189,7 +189,7 @@ void color_green(char *sourcepath){
                 data[index + 2] = 0; //Couleur Bleu
             }
         }
-    write_image_data("images/output/image_green.bmp", data, width, height);
+    write_image_data("images/input/image_out.bmp", data, width, height);
     free(data);
     } else {
         printf("Erreur!");
@@ -214,7 +214,7 @@ if ( read_image_data(sourcepath, &data, &width, &height, &channels)){
             data[index + 2] = gris;
         }
     }
-    write_image_data("images/output/image_gray.bmp", data, width, height);
+    write_image_data("images/input/image_out.bmp", data, width, height);
     free(data);
 } else {
     printf("Erreur!");
