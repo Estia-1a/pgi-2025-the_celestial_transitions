@@ -552,3 +552,58 @@ void rotate_acw(char *sourcepath){
         free(data);
         free(cropped);
     }
+
+    void scale_nearest(char *sourcepath, int scale) {
+        int width, height, channels;
+        unsigned char *data;
+    
+        if (scale < 1) {
+            printf("Le facteur de scale doit être >= 1\n");
+            return;
+        }
+    
+        if (!read_image_data(sourcepath, &data, &width, &height, &channels)) {
+            printf("Erreur de lecture de l'image\n");
+            return;
+        }
+    
+        int new_width = width * scale;
+        int new_height = height * scale;
+    
+        size_t total_size = (size_t)new_width * new_height * channels;
+        unsigned char *scaled = malloc(total_size);
+        if (!scaled) {
+            printf("Erreur d'allocation mémoire (taille = %zu octets)\n", total_size);
+            free(data);
+            return;
+        }
+    
+        for (int y = 0; y < new_height; y++) {
+            for (int x = 0; x < new_width; x++) {
+                int src_x = x / scale;
+                int src_y = y / scale;
+    
+                if (src_x >= width || src_y >= height) {
+                    printf("src_x/y hors limites : (%d, %d) sur %dx%d\n", src_x, src_y, width, height);
+                    continue;
+                }
+    
+                int src_idx = (src_y * width + src_x) * channels;
+                int dst_idx = (y * new_width + x) * channels;
+    
+                if (dst_idx + channels > total_size) {
+                    printf("Dépassement mémoire : dst_idx = %d\n", dst_idx);
+                    continue;
+                }
+    
+                for (int c = 0; c < channels; c++) {
+                    scaled[dst_idx + c] = data[src_idx + c];
+                }
+            }
+        }
+    
+        write_image_data("image_scaled.bmp", scaled, new_width, new_height);
+        
+        free(data);
+        free(scaled);
+    }

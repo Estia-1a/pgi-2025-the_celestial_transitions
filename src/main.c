@@ -132,6 +132,11 @@ int main(int argc, char **argv) {
     scale_crop(configuration.filenames[0],cx,cy,w,h);
   }
   
+if ( strncmp( configuration.command, "scale_nearest", 13) == 0){
+  int t = configuration.arguments[0][0];
+  scale_nearest(configuration.filenames[0], t);
+}
+
   return 0;
 }
 
