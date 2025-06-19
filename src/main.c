@@ -123,7 +123,14 @@ int main(int argc, char **argv) {
   if ( strncmp( configuration.command, "mirror_total", 12 )== 0){
     mirror_total(configuration.filenames[0]);
   }
-
+  
+  if ( strncmp( configuration.command, "scale_crop", 10 ) == 0){
+    int cx = atoi(configuration.arguments[0]);
+    int cy = atoi(configuration.arguments[1]);
+    int w = atoi(configuration.arguments[2]);
+    int h = atoi(configuration.arguments[3]);
+    scale_crop(configuration.filenames[0],cx,cy,w,h);
+  }
   
   return 0;
 }

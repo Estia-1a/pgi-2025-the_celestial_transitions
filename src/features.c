@@ -510,6 +510,45 @@ void rotate_acw(char *sourcepath){
 
     void mirror_total (char* sourcepath){
         mirror_horizontal(sourcepath);
-
         mirror_vertical("image_out.bmp");
+    }
+
+    void scale_crop (char* sourcepath, int center_x, int center_y, int cwidth, int cheight){
+        int width,height,channels;
+        unsigned char *data;
+
+        if ( !read_image_data(sourcepath, &data, &width, &height, &channels)){
+            printf("Erreur de lecture Image");
+            return;
+        }
+
+        unsigned char *cropped = malloc(cwidth * cheight * channels);
+        if (!cropped) {
+            printf("Erreur Mémoire Crop");
+            free(data);
+            return;
+        }
+
+        for (int y = 0; y < cheight; y++) {
+            for (int x = 0; x < cwidth; x++){
+                int src_x = center_x - cwidth / 2 + x;
+                int src_y = center_y - cheight / 2 + y;
+
+                int dst_idx = (y * cwidth + x) * channels;
+
+                if (src_x >= 0 && src_x < width && src_y >= 0 && src_y < height) {
+                    int src_idx = (src_y * width + src_x) * channels;
+                    for (int c = 0; c < channels; c++) {
+                        cropped[dst_idx + c] = data[src_idx + c];
+                    }
+                } else {
+                    for (int c = 0; c < channels; c++) {
+                        cropped[dst_idx + c] = 0;
+                    }
+                }
+            }
+        }
+        write_image_data("image_out.bmp", cropped, cwidth, cheight);
+        free(data);
+        free(cropped);
     }
