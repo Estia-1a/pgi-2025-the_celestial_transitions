@@ -552,3 +552,58 @@ void rotate_acw(char *sourcepath){
         free(data);
         free(cropped);
     }
+
+    void scale_nearest(char *sourcepath, float scale) {
+        int width, height, channels;
+        unsigned char *data;
+    
+        if (scale <= 0.0f) {
+            printf("Le facteur de scale doit être strictement > 0\n");
+            return;
+        }
+    
+        if (!read_image_data(sourcepath, &data, &width, &height, &channels)) {
+            printf("Erreur de lecture de l'image\n");
+            return;
+        }
+    
+        int new_width = (int)(width * scale);
+        int new_height = (int)(height * scale);
+    
+        if (new_width < 1 || new_height < 1) {
+            printf("Résolution finale trop petite (%d x %d)\n", new_width, new_height);
+            free(data);
+            return;
+        }
+    
+        size_t total_size = (size_t)new_width * new_height * channels;
+        unsigned char *scaled = malloc(total_size);
+        if (!scaled) {
+            printf("Allocation mémoire échouée (%zu octets)\n", total_size);
+            free(data);
+            return;
+        }
+    
+        for (int y = 0; y < new_height; y++) {
+            for (int x = 0; x < new_width; x++) {
+                int src_x = (int)(x / scale);
+                int src_y = (int)(y / scale);
+    
+                //  pour éviter dépassement
+                if (src_x >= width) src_x = width - 1;
+                if (src_y >= height) src_y = height - 1;
+    
+                int src_idx = (src_y * width + src_x) * channels;
+                int dst_idx = (y * new_width + x) * channels;
+    
+                for (int c = 0; c < channels; c++) {
+                    scaled[dst_idx + c] = data[src_idx + c];
+                }
+            }
+        }
+    
+        write_image_data("image_out.bmp", scaled, new_width, new_height);
+    
+        free(data);
+        free(scaled);
+    }
