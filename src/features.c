@@ -12,14 +12,19 @@
  * Your commit messages must contain "#n" with: n = number of the corresponding feature issue.
  * When the feature is totally implemented, your commit message must contain "close #n".
  */
-void dimension (char* sourcepath){
-    unsigned char *data = NULL;
-    int width, height, channel_count;
-    
-    read_image_data(sourcepath, &data, &width, &height, &channel_count);
-
-    printf("Dimension : %d, %d\n", width, height);
-    printf("Dimension : %d, %d\n", width, height);
+void dimension(char *source_path) {
+    unsigned char *data;
+    int width;
+    int height;
+    int channel_count;
+ 
+    int chiffreRetour = read_image_data(source_path, &data, &width, &height, &channel_count);
+    if (chiffreRetour == 0){
+        printf("il y a un problème avec read_image_data");
+    }
+    else {
+        printf("dimension: %d, %d", width, height);
+    }
 }
 
 void helloWorld() {
