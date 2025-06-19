@@ -612,3 +612,72 @@ void rotate_acw(char *sourcepath){
         free(data);
         free(scaled);
     }
+
+    void scale_bilinear(char *sourcepath, float scale) {
+        int width, height, channels;
+        unsigned char *data;
+    
+        if (scale <= 0.0f) {
+            printf("Le facteur de scale doit être > 0\n");
+            return;
+        }
+    
+        if (!read_image_data(sourcepath, &data, &width, &height, &channels)) {
+            printf("Erreur de lecture de l'image\n");
+            return;
+        }
+    
+        int new_width = (int)(width * scale);
+        int new_height = (int)(height * scale);
+    
+        unsigned char *scaled = malloc((size_t)new_width * new_height * channels);
+        if (!scaled) {
+            printf("Erreur d'allocation mémoire\n");
+            free(data);
+            return;
+        }
+    
+        for (int y = 0; y < new_height; y++) {
+            for (int x = 0; x < new_width; x++) {
+                float gx = x / scale;
+                float gy = y / scale;
+    
+                int x0 = (int)gx;
+                int y0 = (int)gy;
+                int x1 = x0 + 1;
+                int y1 = y0 + 1;
+    
+                float dx = gx - x0;
+                float dy = gy - y0;
+    
+                // aux bords
+                if (x1 >= width) x1 = width - 1;
+                if (y1 >= height) y1 = height - 1;
+                if (x0 >= width) x0 = width - 1;
+                if (y0 >= height) y0 = height - 1;
+    
+                int dst_idx = (y * new_width + x) * channels;
+    
+                for (int c = 0; c < channels; c++) {
+                    int i00 = (y0 * width + x0) * channels + c;
+                    int i10 = (y0 * width + x1) * channels + c;
+                    int i01 = (y1 * width + x0) * channels + c;
+                    int i11 = (y1 * width + x1) * channels + c;
+    
+                    float top = data[i00] * (1 - dx) + data[i10] * dx;
+                    float bottom = data[i01] * (1 - dx) + data[i11] * dx;
+                    float value = top * (1 - dy) + bottom * dy;
+    
+                    if (value < 0) value = 0;
+                    if (value > 255) value = 255;
+    
+                    scaled[dst_idx + c] = (unsigned char)(value + 0.5f);
+                }
+            }
+        }
+    
+        write_image_data("image_out.bmp", scaled, new_width, new_height);
+        
+        free(data);
+        free(scaled);
+    }

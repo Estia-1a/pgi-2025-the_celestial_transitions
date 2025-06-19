@@ -136,6 +136,12 @@ int main(int argc, char **argv) {
     float scale = atof(configuration.arguments[0]);
     scale_nearest(configuration.filenames[0], scale);
   }
+
+  if (strncmp(configuration.command, "scale_bilinear", 14) == 0){
+    float scale = atof(configuration.arguments[0]);
+    scale_bilinear(configuration.filenames[0], scale);
+  }
+
   return 0;
 }
 

@@ -55,4 +55,6 @@ void scale_crop( char *sourcepath, int cx, int cy, int width, int height);
 
 void scale_nearest( char *sourcepath, float scale);
 
+void scale_bilinear( char *sourcepath, float scale);
+
 #endif
